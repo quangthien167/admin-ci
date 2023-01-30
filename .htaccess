@@ -1,0 +1,16 @@
+php_value memory_limit 512M
+php_value max_execution_time 300
+<IfModule mod_rewrite.c>
+    Options -Indexes
+    Options +FollowSymLinks
+    RewriteEngine on
+
+    ### SET UP ENVIORNMENTS ###
+    # Default environment is DEV and release branch LIVE ###
+    RewriteRule .* - [E=ENVIRONMENT:DEV]
+
+    RewriteCond $1 !^(index\.php|resources|robots\.txt)
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php/$1 [NC,L,QSA]
+</IfModule> 
